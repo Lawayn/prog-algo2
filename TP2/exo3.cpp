@@ -7,7 +7,13 @@ MainWindow* w=nullptr;
 
 
 void bubbleSort(Array& toSort){
-	// bubbleSort
+    for (uint i=0; i<toSort.size();i++){
+        for (uint j=0;j<toSort.size()-1;j++){
+            if (toSort[j+1]<toSort[j]){
+               toSort.swap(j,j+1);
+            }
+        }
+    }
 }
 
 
