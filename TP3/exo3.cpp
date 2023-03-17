@@ -24,16 +24,19 @@ struct SearchTreeNode : public Node
 
 	void insertNumber(int value) {
         // create a new node and insert it in right or left child
-        if (this->value>value && this->value==NULL){
-            this->left = new SearchTreeNode(value);
-        } else if(this->value<value && this->value==NULL){
-            this->right = new SearchTreeNode(value);
-        } else if(this->value>value && this->value!=NULL){
-            this->left->insertNumber(value);
-        } else if(this->value<value && this->value!=NULL){
-            this->right->insertNumber(value);
+        if (this->value>value){
+            if(this->left==NULL){
+                this->left = new SearchTreeNode(value);
+            } else {
+                this->left->insertNumber(value);
+            }
+        } else if(this->value<value){
+            if(this->right==NULL){
+                this->right = new SearchTreeNode(value);
+            } else {
+                this->right->insertNumber(value);
+            }
         }
-
 
     }
 
@@ -42,14 +45,45 @@ struct SearchTreeNode : public Node
         // right child +1 for itself. If there is no child, return
         // just 1
 
-        return 1;
+        int tailleLeft = 0;
+        int tailleRight = 0;
+
+        if(left==NULL && right==NULL){
+            return 1;
+        } else if(left!=NULL && right==NULL){
+            tailleLeft = 1 + left->height();
+            return tailleLeft;
+        } else if(left ==NULL && right != NULL){
+            tailleRight = 1 + right->height();
+            return tailleRight;
+        } else{
+            tailleLeft = 1 + left->height();
+            tailleRight = 1 + right->height();
+            if(tailleLeft>tailleRight){
+                return tailleLeft;
+            } else{
+                return tailleRight;
+            }
+        }
+
     }
 
 	uint nodesCount() const {
         // should return the sum of nodes within left child and
         // right child +1 for itself. If there is no child, return
         // just 1
-        return 1;
+
+        int nbrLeft = 0;
+        int nbrRight = 0;
+
+        if(left!=NULL){
+            nbrLeft = left->nodesCount();
+        }
+        if(right!=NULL){
+            nbrRight = right->nodesCount();
+        }
+
+        return nbrLeft + nbrRight +1;
 	}
 
 	bool isLeaf() const {
@@ -62,11 +96,32 @@ struct SearchTreeNode : public Node
 
 	void allLeaves(Node* leaves[], uint& leavesCount) {
         // fill leaves array with all leaves of this tree
+
+        if(isLeaf()==false){
+            if(left!=NULL){
+                left->allLeaves(leaves, leavesCount);
+            }
+            if (right!=NULL){
+                right->allLeaves(leaves, leavesCount);
+            }
+        } else{
+            leaves[leavesCount]= this;
+            leavesCount++;
+        }
 	}
 
 	void inorderTravel(Node* nodes[], uint& nodesCount) {
         // fill nodes array with all nodes with inorder travel
-	}
+
+        if(left!=NULL){
+            left->inorderTravel(nodes, nodesCount);
+        } else{
+            nodes[nodesCount] = left;
+            nodesCount++;
+            nodes[nodesCount] = this;
+        }
+
+    }
 
 	void preorderTravel(Node* nodes[], uint& nodesCount) {
         // fill nodes array with all nodes with preorder travel
