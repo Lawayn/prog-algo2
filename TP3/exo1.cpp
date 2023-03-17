@@ -7,7 +7,20 @@ using std::size_t;
 
 int binarySearch(Array& array, int toSearch)
 {
-	return -1;
+    int start = 0;
+    int end = array.size();
+    while (start<end){
+        int mid = (start+end)/2;
+        if (toSearch > array[mid]){
+            start = mid+1;
+        } else if(toSearch<array[mid]){
+            end=mid;
+        } else{
+            return mid;
+            break;
+        }
+    }
+    return -1;
 }
 
 int main(int argc, char *argv[])

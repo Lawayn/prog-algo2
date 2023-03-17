@@ -1,8 +1,10 @@
 #include <QApplication>
 #include <time.h>
-
+#include <iostream>
+#include <cstdlib>
 #include "tp2.h"
 
+using namespace std;
 
 MainWindow* w=nullptr;
 
@@ -30,10 +32,17 @@ void recursivQuickSort(Array& toSort, int size)
 	
 	// recursiv sort of lowerArray and greaterArray
 
+    //lowerArray[0]>lowerArray[1]
 
-
+   if (lowerSize>=2) {
+        recursivQuickSort(lowerArray,lowerSize);
+    }
+   if( greaterSize>=2){
+        recursivQuickSort(greaterArray,greaterSize);
+   }
 
 	// merge
+
 }
 
 void quickSort(Array& toSort){

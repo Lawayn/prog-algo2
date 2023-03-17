@@ -16,6 +16,20 @@ void binarySearchAll(Array& array, int toSearch, int& indexMin, int& indexMax)
 {
 	// do not use increments, use two different binary search loop
     indexMin = indexMax = -1;
+
+    int start = 0;
+    int end = array.size();
+    while (start<end){
+        int mid = (start+end)/2;
+        if (toSearch > array[mid]){
+            start = mid+1;
+        } else if(toSearch<array[mid]){
+            end=mid;
+        } else{
+            break;
+        }
+    }
+
 }
 
 int main(int argc, char *argv[])

@@ -7,16 +7,11 @@
 long power(long value, long n)
 {
     Context _("power", value, n); // do not care about this, it allow the display of call stack
-    int tab[n];
-    int sum = 0;
-    for (int i = 0;i>value;i++){
-        if (tab[i]){
-            sum = i*i;
-        }
+    if (n<=0){
+        return_and_display(1);
     }
-    // your code
+    return_and_display(value*power(value,n-1));
     // return_and_display shows the result in the window and returns it
-    return_and_display(1);
 }
 
 int main(int argc, char *argv[])
