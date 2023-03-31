@@ -11,34 +11,57 @@ using std::string;
 
 int Heap::leftChildIndex(int nodeIndex)
 {
-    return 0;
+    return nodeIndex *2 +1;
 }
 
 int Heap::rightChildIndex(int nodeIndex)
 {
-    return 0;
+    return nodeIndex*2+2;
 }
 
 void Heap::insertHeapNode(int heapSize, int value)
 {
 	// use (*this)[i] or this->get(i) to get a value at index i
-	int i = heapSize;
+    int i = heapSize;
+    this->get(i) = value;
+    while(i>0 &&  this->get(i)> this->get((i-1)/2)){
+        swap(i, (i-1)/2);
+        i = (i-1)/2;
+    }
 }
 
 void Heap::heapify(int heapSize, int nodeIndex)
 {
 	// use (*this)[i] or this->get(i) to get a value at index i
-	int i_max = nodeIndex;
+    int i = 0;
+    int i_max = nodeIndex;
+
+    if(this->get(nodeIndex)<this->get(leftChildIndex(nodeIndex)) && leftChildIndex(nodeIndex)<heapSize){
+        i_max = leftChildIndex(nodeIndex);
+    }
+    if(this->get(nodeIndex)<this->get(rightChildIndex(nodeIndex)) && rightChildIndex(nodeIndex)<heapSize){
+        i_max = rightChildIndex(nodeIndex);
+    }
+
+    if(i_max != i){
+        swap(i, i_max);
+        heapify(heapSize, i_max);
+    }
 }
 
 void Heap::buildHeap(Array& numbers)
 {
-
+    for(int i = 0; i<numbers.size(); i++){
+        heapify(numbers.size(), numbers[i]);
+    }
 }
 
 void Heap::heapSort()
 {
-
+     for(int i=this->size()-1;i>0; i--){
+         swap(0, i);
+         heapify(i,0);
+     }
 }
 
 int main(int argc, char *argv[])
