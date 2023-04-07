@@ -23,6 +23,7 @@ std::vector<string> TP5::names(
 unsigned long int hash(string key)
 {
     // return an unique hash id from key
+
     return 0;
 }
 
