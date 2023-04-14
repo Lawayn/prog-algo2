@@ -2,6 +2,7 @@
 #include <QString>
 #include <time.h>
 #include <stdio.h>
+#include <iostream>
 #include <string>
 
 #include <tp5.h>
@@ -101,6 +102,7 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
 	Map map;
+    std::vector<std::string> inserted;
 
     map.insert("Yolo", 20);
     for (std::string& name : TP5::names)
@@ -108,6 +110,7 @@ int main(int argc, char *argv[])
         if (rand() % 3 == 0)
         {
             map.insert(name, rand() % 21);
+            inserted.push_back(name);
         }
     }
 
@@ -118,6 +121,12 @@ int main(int argc, char *argv[])
     printf("map[\"Yolo\"]=%d\n", map.get("Yolo"));
     printf("map[\"Tanguy\"]=%d\n", map.get("Tanguy"));
 
+    printf("\n");
+    for (size_t i=0; i<inserted.size()/2; i++)
+        printf("map[\"%s\"]=%d\n", inserted[i].c_str(), map.get(inserted[i]));
+
+
+    std::cout.flush();
 
     QApplication a(argc, argv);
     MainWindow::instruction_duration = 200;
