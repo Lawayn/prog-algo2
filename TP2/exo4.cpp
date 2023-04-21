@@ -43,6 +43,18 @@ void recursivQuickSort(Array& toSort, int size)
 
 	// merge
 
+   int i = 0;
+   for(int j = 0; j<lowerSize;j++){
+       toSort.insert(i,lowerArray[j]);
+       i++;
+   }
+   toSort.insert(i,pivot);
+   i++;
+   for(int l = 0; l<greaterSize;l++){
+       toSort.insert(i, greaterArray[l]);
+       i++;
+   }
+
 }
 
 void quickSort(Array& toSort){

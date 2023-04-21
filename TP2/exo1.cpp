@@ -7,12 +7,13 @@ MainWindow* w = nullptr;
 
 void selectionSort(Array& toSort){
     for (uint i=0; i<toSort.size();i++){
+        int min = i;
        for (uint j=i+1;j<toSort.size();j++){
-           if (toSort[j]<toSort[i]){
-              toSort.swap(i,j);
+           if (toSort[j]<toSort[min]){
+              min=j;
            }
-
        }
+       toSort.swap(i,min);
     }
 }
 
