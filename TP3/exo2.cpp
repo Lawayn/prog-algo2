@@ -26,7 +26,22 @@ void binarySearchAll(Array& array, int toSearch, int& indexMin, int& indexMax)
         } else if(toSearch<array[mid]){
             end=mid;
         } else{
-            break;
+            indexMin = mid;
+            end = mid;
+        }
+    }
+
+    start = 0;
+    end = array.size();
+    while(start<end){
+        int mid = (start+end)/2;
+        if (toSearch > array[mid]){
+            start = mid+1;
+        } else if(toSearch<array[mid]){
+            end=mid;
+        } else{
+            indexMax = mid;
+            start = mid +1;
         }
     }
 

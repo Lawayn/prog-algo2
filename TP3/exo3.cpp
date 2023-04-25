@@ -115,24 +115,58 @@ struct SearchTreeNode : public Node
 
         if(left!=NULL){
             left->inorderTravel(nodes, nodesCount);
-        } else{
-            nodes[nodesCount] = left;
-            nodesCount++;
-            nodes[nodesCount] = this;
+        }
+
+        nodes[nodesCount] = this;
+        nodesCount++;
+
+        if(right!=NULL){
+            right->inorderTravel(nodes, nodesCount);
         }
 
     }
 
 	void preorderTravel(Node* nodes[], uint& nodesCount) {
         // fill nodes array with all nodes with preorder travel
-	}
+        nodes[nodesCount] =this;
+        nodesCount++;
+
+        if(left!=NULL){
+            left->preorderTravel(nodes, nodesCount);
+        }
+
+        if(right!=NULL){
+            right->preorderTravel(nodes, nodesCount);
+        }
+    }
 
 	void postorderTravel(Node* nodes[], uint& nodesCount) {
         // fill nodes array with all nodes with postorder travel
-	}
+
+        if(left!=NULL){
+            left->postorderTravel(nodes, nodesCount);
+        }
+
+        if(right!=NULL){
+            right->postorderTravel(nodes, nodesCount);
+        }
+
+        nodes[nodesCount] =this;
+        nodesCount++;
+    }
 
 	Node* find(int value) {
         // find the node containing value
+        if(this->value==value){
+            return this;
+        } else{
+            if(left!=NULL){
+                return left->find(value);
+            }
+            if(right!=NULL){
+                return right->find(value);
+            }
+        }
 		return nullptr;
 	}
 

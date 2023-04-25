@@ -16,9 +16,7 @@ int binarySearch(Array& array, int toSearch)
         } else if(toSearch<array[mid]){
             end=mid;
         } else{
-            return mid;
-            break;
-        }
+            return mid;        }
     }
     return -1;
 }
