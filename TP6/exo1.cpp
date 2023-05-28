@@ -74,6 +74,16 @@ bool Graph::detectCycle(GraphNode *first, bool visited[])
 	  (the first may not be in the cycle)
 	  Think about what's happen when you get an already visited node
 	**/
+    visited[first->value] = true;
+    for(Edge *e = first->edges; e != NULL; e = e->next){
+        if(!visited[e->destination->value]){
+            if(detectCycle(e->destination, visited)){
+                return true;
+            }
+        } else{
+            return true;
+        }
+    }
     return false;
 }
 
