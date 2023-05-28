@@ -33,26 +33,28 @@ void Heap::insertHeapNode(int heapSize, int value)
 void Heap::heapify(int heapSize, int nodeIndex)
 {
 	// use (*this)[i] or this->get(i) to get a value at index i
-    int i = 0;
     int i_max = nodeIndex;
 
-    if(this->get(nodeIndex)<this->get(leftChildIndex(nodeIndex)) && leftChildIndex(nodeIndex)<heapSize){
-        i_max = leftChildIndex(nodeIndex);
+    int left = leftChildIndex(nodeIndex);
+    int right = rightChildIndex(nodeIndex);
+
+    if(left<heapSize && this->get(left)>this->get(nodeIndex)){
+        i_max = left;
     }
-    if(this->get(nodeIndex)<this->get(rightChildIndex(nodeIndex)) && rightChildIndex(nodeIndex)<heapSize){
-        i_max = rightChildIndex(nodeIndex);
+    if(right<heapSize && this->get(right)<this->get(i_max)){
+        i_max = right;
     }
 
-    if(i_max != i){
-        swap(i, i_max);
+    if(i_max != nodeIndex){
+        swap(this->get(nodeIndex), this->get(i_max));
         heapify(heapSize, i_max);
     }
 }
 
 void Heap::buildHeap(Array& numbers)
 {
-    for(int i = 0; i<numbers.size(); i++){
-        heapify(numbers.size(), numbers[i]);
+    for(unsigned int i = 0; i<numbers.size(); i++){
+        insertHeapNode(i, numbers[i]);
     }
 }
 

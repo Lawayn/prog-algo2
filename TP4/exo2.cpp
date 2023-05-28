@@ -78,10 +78,11 @@ void HuffmanHeap::insertHeapNode(int heapSize, HuffmanNode* newNode)
     int i = heapSize;
     this->set(i, newNode);
 
-    while(i>0 && this->get(i)->frequences < this->get((i-1)/2)->frequences){
+    while(i>0 && (this->get(i)->frequences < this->get((i-1)/2)->frequences)){
         this->swap(i,(i-1)/2);
         i = (i-1)/2;
     }
+
 }
 
 void buildHuffmanHeap(const Array& frequences, HuffmanHeap& priorityMinHeap, int& heapSize)
@@ -135,10 +136,8 @@ HuffmanNode* HuffmanHeap::extractMinNode(int heapSize)
 
     HuffmanNode *premNode = this->get(0);
 
-    for(int i = 0;i<heapSize-1;i++){
-        this->set(i, this->get(i+1));
-    }
-
+    this->swap(0, heapSize-1);
+    this->heapify(heapSize-1,0);
     return premNode;
 }
 
